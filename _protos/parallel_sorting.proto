@@ -1,0 +1,81 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.parallelsorting";
+option java_outer_classname = "ParallelSorting";
+option objc_class_prefix = "PS";
+
+package parallelsorting;
+
+// Interface exported by the server.
+service ParallelSorting {
+  
+  rpc compare(Tuple) returns (Result) {}
+
+  rpc get_min(NIL) returns (Result) {}
+
+  rpc get_max(NIL) returns (Result) {}
+
+  rpc swap(Tuple) returns (Result) {}
+
+  rpc remote_sort(NIL) returns (stream Data) {}
+
+  rpc check_if_busy(NIL) returns (Status) {}
+
+  rpc process_data(stream Data) returns (stream Data) {}
+
+  rpc start_connection(NIL) returns (Status) {}
+
+  rpc end_connection(NIL) returns (Status) {}
+
+  rpc get_partial_sorted_data(NIL) returns (stream Data) {}
+
+  rpc connect_to(Address) returns (Status) {}
+
+  rpc forward_data_to_peer(stream Data) returns (NIL) {}
+
+  rpc input_data(stream Data) returns (NIL){}
+
+  rpc fetch_result_from_peer(NIL) returns (stream Data) {}
+ }
+
+message Tuple{
+  int32 a = 1;
+  int32 b = 2;
+}
+
+message Result{
+  int32 result = 1;
+}
+
+//empty input
+message NIL{
+}
+
+
+message Status{
+  bool status = 1;
+}
+
+
+message Data{
+  int32 item =1 ;
+}
+
+message Address{
+  string addr = 1;
+}
