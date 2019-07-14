@@ -51,6 +51,8 @@ service ParallelSorting {
   rpc input_data(stream Data) returns (NIL){}
 
   rpc fetch_result_from_peer(NIL) returns (stream Data) {}
+
+  rpc remove_duplicate(Tuple) returns (NIL) {}
  }
 
 message Tuple{

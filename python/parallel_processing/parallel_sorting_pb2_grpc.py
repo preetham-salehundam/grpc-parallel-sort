@@ -84,6 +84,11 @@ class ParallelSortingStub(object):
         request_serializer=parallel__sorting__pb2.NIL.SerializeToString,
         response_deserializer=parallel__sorting__pb2.Data.FromString,
         )
+    self.remove_duplicate = channel.unary_unary(
+        '/parallelsorting.ParallelSorting/remove_duplicate',
+        request_serializer=parallel__sorting__pb2.Tuple.SerializeToString,
+        response_deserializer=parallel__sorting__pb2.NIL.FromString,
+        )
 
 
 class ParallelSortingServicer(object):
@@ -188,6 +193,13 @@ class ParallelSortingServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def remove_duplicate(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ParallelSortingServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -260,6 +272,11 @@ def add_ParallelSortingServicer_to_server(servicer, server):
           servicer.fetch_result_from_peer,
           request_deserializer=parallel__sorting__pb2.NIL.FromString,
           response_serializer=parallel__sorting__pb2.Data.SerializeToString,
+      ),
+      'remove_duplicate': grpc.unary_unary_rpc_method_handler(
+          servicer.remove_duplicate,
+          request_deserializer=parallel__sorting__pb2.Tuple.FromString,
+          response_serializer=parallel__sorting__pb2.NIL.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

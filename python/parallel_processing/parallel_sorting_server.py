@@ -90,6 +90,11 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
         for item in result:
             yield item
     
+    def remove_duplicate(self, data , context):
+        index = self.internal_array.index(data.b)
+        self.internal_array.pop(index)
+        return NIL
+
     def process_data(self, data_a, context):
         logging.debug("#### process_data ####")
         self.internal_array = [x.item for x in data_a]
@@ -99,7 +104,13 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
             # swap max and min
             logging.debug(" min {}, max {}".format(min_B, max_A))
             data = parallel_sorting_pb2.Tuple(a=max_A, b=min_B)
-            min_B = self.stub.swap(data).result
+            if(max_A == min_B):
+                self.stub.remove_duplicate(data)
+                min_B = data.b
+                index = self.internal_array.index(max_A)
+                self.internal_array.insert(index+1, min_B)
+            else:
+                min_B = self.stub.swap(data).result
             index = self.internal_array.index(max_A)
             self.internal_array[index] = min_B
             logging.debug("after swapping in process A {}".format(self.internal_array))
@@ -176,7 +187,7 @@ def serve(port=50051):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     try:
         PORT=sys.argv[1]
     except Exception as e:

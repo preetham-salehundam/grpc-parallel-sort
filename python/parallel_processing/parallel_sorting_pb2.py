@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='parallelsorting',
   syntax='proto3',
   serialized_options=_b('\n io.grpc.examples.parallelsortingB\017ParallelSortingP\001\242\002\002PS'),
-  serialized_pb=_b('\n\x16parallel_sorting.proto\x12\x0fparallelsorting\"\x1d\n\x05Tuple\x12\t\n\x01\x61\x18\x01 \x01(\x05\x12\t\n\x01\x62\x18\x02 \x01(\x05\"\x18\n\x06Result\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x05\n\x03NIL\"\x18\n\x06Status\x12\x0e\n\x06status\x18\x01 \x01(\x08\"\x14\n\x04\x44\x61ta\x12\x0c\n\x04item\x18\x01 \x01(\x05\"\x17\n\x07\x41\x64\x64ress\x12\x0c\n\x04\x61\x64\x64r\x18\x01 \x01(\t2\xb2\x07\n\x0fParallelSorting\x12<\n\x07\x63ompare\x12\x16.parallelsorting.Tuple\x1a\x17.parallelsorting.Result\"\x00\x12:\n\x07get_min\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Result\"\x00\x12:\n\x07get_max\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Result\"\x00\x12\x39\n\x04swap\x12\x16.parallelsorting.Tuple\x1a\x17.parallelsorting.Result\"\x00\x12>\n\x0bremote_sort\x12\x14.parallelsorting.NIL\x1a\x15.parallelsorting.Data\"\x00\x30\x01\x12@\n\rcheck_if_busy\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Status\"\x00\x12\x42\n\x0cprocess_data\x12\x15.parallelsorting.Data\x1a\x15.parallelsorting.Data\"\x00(\x01\x30\x01\x12\x43\n\x10start_connection\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Status\"\x00\x12\x41\n\x0e\x65nd_connection\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Status\"\x00\x12J\n\x17get_partial_sorted_data\x12\x14.parallelsorting.NIL\x1a\x15.parallelsorting.Data\"\x00\x30\x01\x12\x41\n\nconnect_to\x12\x18.parallelsorting.Address\x1a\x17.parallelsorting.Status\"\x00\x12G\n\x14\x66orward_data_to_peer\x12\x15.parallelsorting.Data\x1a\x14.parallelsorting.NIL\"\x00(\x01\x12=\n\ninput_data\x12\x15.parallelsorting.Data\x1a\x14.parallelsorting.NIL\"\x00(\x01\x12I\n\x16\x66\x65tch_result_from_peer\x12\x14.parallelsorting.NIL\x1a\x15.parallelsorting.Data\"\x00\x30\x01\x42:\n io.grpc.examples.parallelsortingB\x0fParallelSortingP\x01\xa2\x02\x02PSb\x06proto3')
+  serialized_pb=_b('\n\x16parallel_sorting.proto\x12\x0fparallelsorting\"\x1d\n\x05Tuple\x12\t\n\x01\x61\x18\x01 \x01(\x05\x12\t\n\x01\x62\x18\x02 \x01(\x05\"\x18\n\x06Result\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x05\n\x03NIL\"\x18\n\x06Status\x12\x0e\n\x06status\x18\x01 \x01(\x08\"\x14\n\x04\x44\x61ta\x12\x0c\n\x04item\x18\x01 \x01(\x05\"\x17\n\x07\x41\x64\x64ress\x12\x0c\n\x04\x61\x64\x64r\x18\x01 \x01(\t2\xf6\x07\n\x0fParallelSorting\x12<\n\x07\x63ompare\x12\x16.parallelsorting.Tuple\x1a\x17.parallelsorting.Result\"\x00\x12:\n\x07get_min\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Result\"\x00\x12:\n\x07get_max\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Result\"\x00\x12\x39\n\x04swap\x12\x16.parallelsorting.Tuple\x1a\x17.parallelsorting.Result\"\x00\x12>\n\x0bremote_sort\x12\x14.parallelsorting.NIL\x1a\x15.parallelsorting.Data\"\x00\x30\x01\x12@\n\rcheck_if_busy\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Status\"\x00\x12\x42\n\x0cprocess_data\x12\x15.parallelsorting.Data\x1a\x15.parallelsorting.Data\"\x00(\x01\x30\x01\x12\x43\n\x10start_connection\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Status\"\x00\x12\x41\n\x0e\x65nd_connection\x12\x14.parallelsorting.NIL\x1a\x17.parallelsorting.Status\"\x00\x12J\n\x17get_partial_sorted_data\x12\x14.parallelsorting.NIL\x1a\x15.parallelsorting.Data\"\x00\x30\x01\x12\x41\n\nconnect_to\x12\x18.parallelsorting.Address\x1a\x17.parallelsorting.Status\"\x00\x12G\n\x14\x66orward_data_to_peer\x12\x15.parallelsorting.Data\x1a\x14.parallelsorting.NIL\"\x00(\x01\x12=\n\ninput_data\x12\x15.parallelsorting.Data\x1a\x14.parallelsorting.NIL\"\x00(\x01\x12I\n\x16\x66\x65tch_result_from_peer\x12\x14.parallelsorting.NIL\x1a\x15.parallelsorting.Data\"\x00\x30\x01\x12\x42\n\x10remove_duplicate\x12\x16.parallelsorting.Tuple\x1a\x14.parallelsorting.NIL\"\x00\x42:\n io.grpc.examples.parallelsortingB\x0fParallelSortingP\x01\xa2\x02\x02PSb\x06proto3')
 )
 
 
@@ -219,46 +219,46 @@ DESCRIPTOR.message_types_by_name['Data'] = _DATA
 DESCRIPTOR.message_types_by_name['Address'] = _ADDRESS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Tuple = _reflection.GeneratedProtocolMessageType('Tuple', (_message.Message,), {
-  'DESCRIPTOR' : _TUPLE,
-  '__module__' : 'parallel_sorting_pb2'
+Tuple = _reflection.GeneratedProtocolMessageType('Tuple', (_message.Message,), dict(
+  DESCRIPTOR = _TUPLE,
+  __module__ = 'parallel_sorting_pb2'
   # @@protoc_insertion_point(class_scope:parallelsorting.Tuple)
-  })
+  ))
 _sym_db.RegisterMessage(Tuple)
 
-Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), {
-  'DESCRIPTOR' : _RESULT,
-  '__module__' : 'parallel_sorting_pb2'
+Result = _reflection.GeneratedProtocolMessageType('Result', (_message.Message,), dict(
+  DESCRIPTOR = _RESULT,
+  __module__ = 'parallel_sorting_pb2'
   # @@protoc_insertion_point(class_scope:parallelsorting.Result)
-  })
+  ))
 _sym_db.RegisterMessage(Result)
 
-NIL = _reflection.GeneratedProtocolMessageType('NIL', (_message.Message,), {
-  'DESCRIPTOR' : _NIL,
-  '__module__' : 'parallel_sorting_pb2'
+NIL = _reflection.GeneratedProtocolMessageType('NIL', (_message.Message,), dict(
+  DESCRIPTOR = _NIL,
+  __module__ = 'parallel_sorting_pb2'
   # @@protoc_insertion_point(class_scope:parallelsorting.NIL)
-  })
+  ))
 _sym_db.RegisterMessage(NIL)
 
-Status = _reflection.GeneratedProtocolMessageType('Status', (_message.Message,), {
-  'DESCRIPTOR' : _STATUS,
-  '__module__' : 'parallel_sorting_pb2'
+Status = _reflection.GeneratedProtocolMessageType('Status', (_message.Message,), dict(
+  DESCRIPTOR = _STATUS,
+  __module__ = 'parallel_sorting_pb2'
   # @@protoc_insertion_point(class_scope:parallelsorting.Status)
-  })
+  ))
 _sym_db.RegisterMessage(Status)
 
-Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
-  'DESCRIPTOR' : _DATA,
-  '__module__' : 'parallel_sorting_pb2'
+Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), dict(
+  DESCRIPTOR = _DATA,
+  __module__ = 'parallel_sorting_pb2'
   # @@protoc_insertion_point(class_scope:parallelsorting.Data)
-  })
+  ))
 _sym_db.RegisterMessage(Data)
 
-Address = _reflection.GeneratedProtocolMessageType('Address', (_message.Message,), {
-  'DESCRIPTOR' : _ADDRESS,
-  '__module__' : 'parallel_sorting_pb2'
+Address = _reflection.GeneratedProtocolMessageType('Address', (_message.Message,), dict(
+  DESCRIPTOR = _ADDRESS,
+  __module__ = 'parallel_sorting_pb2'
   # @@protoc_insertion_point(class_scope:parallelsorting.Address)
-  })
+  ))
 _sym_db.RegisterMessage(Address)
 
 
@@ -271,7 +271,7 @@ _PARALLELSORTING = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=181,
-  serialized_end=1127,
+  serialized_end=1195,
   methods=[
   _descriptor.MethodDescriptor(
     name='compare',
@@ -397,6 +397,15 @@ _PARALLELSORTING = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_NIL,
     output_type=_DATA,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='remove_duplicate',
+    full_name='parallelsorting.ParallelSorting.remove_duplicate',
+    index=14,
+    containing_service=None,
+    input_type=_TUPLE,
+    output_type=_NIL,
     serialized_options=None,
   ),
 ])

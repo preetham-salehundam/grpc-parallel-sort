@@ -11,15 +11,30 @@ from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import Process 
 import threading
 import random
-import time
+import time, math
 NIL = parallel_sorting_pb2.NIL()
 
 SERVERS = ["localhost:50052", "localhost:50053" , "localhost:50054"]
 #u_list = [7, 61, 54, 29, 32, 40, 56]
-u_list1 = [17, 16, 54, 129, 23, 20, 36]
-u_list2 = [18, 15, 55, 127, 24, 21, 37]
-u_list3 = [19, 14, 59, 131, 25, 22, 38]
-u_list4 = [13, 16, 57, 123, 27, 12, 31]
+
+unsorted_list = [17, 16, 54, 129, 23, 20, 36, 18, 15, 55, 127, 24, 21, 37, 19, 14, 59, 131, 25, 22, 38, 13, 16, 57, 123, 27, 12, 31]
+unsorted_list = [random.randint(1, 100) for x in range(0,100)]
+print("unsorted list - {}".format(unsorted_list))
+# u_list1 = [17, 16, 54, 129, 23, 20, 36]
+# u_list2 = [20, 15, 55, 127, 24, 21, 37]
+# u_list3 = [19, 14, 59, 131, 25, 22, 38]
+# u_list4 = [13, 16, 57, 123, 27, 12, 31]
+# unsorted_list = u_list1+u_list2+u_list3+u_list4
+
+# chunk generator
+def chunkify(arr, num_of_chunks=1):
+    start = 0
+    chunk_size = math.ceil(len(arr)/num_of_chunks)
+    for i in range(num_of_chunks):
+        #print(i)
+        i += 1 #avoiding a zero
+        yield arr[start: i*chunk_size]
+        start = i*chunk_size
 
 def get_pivot(_list):
     pivot = random.choice(_list)
@@ -143,7 +158,7 @@ def parallel_sort(machine_a, machine_b, u_list_a, u_list_b):
     
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(filename="logs.log",level=logging.INFO)
     # executor= connection_pooling(SERVERS)
     # N = 500
     # u_list=[random.randint(1, N) for x in range(N)]
@@ -154,12 +169,11 @@ if __name__ == '__main__':
     # print(parallel_qsort(list(u_list), executor)[:10])
     # logging.info("parallel quick sort took {:f} s".format(time.time()-start))
     # executor.shutdown()
-
+    u_list1, u_list2, u_list3, u_list4 = tuple(chunkify(unsorted_list, 4))
     start = time.time()
-    print(quicksort(u_list1 + u_list2 + u_list3 + u_list4))
+    qs=quicksort(u_list1 + u_list2 + u_list3 + u_list4)
     end = time.time() - start
     logging.info("seq quicksort took {:f} s".format(end))
-
     machine_lookup = ["localhost:50051", "localhost:50052", "localhost:50053", "localhost:50054"]
     start = time.time()
     with ThreadPoolExecutor(thread_name_prefix="worker") as executor:
@@ -224,8 +238,10 @@ if __name__ == '__main__':
                 # u_list3 = result_3
                 #logging.info("sorted ulist  {} ulist2 {}".format(u_list1, u_list2))
     end = time.time()- start
-    print(u_list1 + u_list2 + u_list3 + u_list4)
+    pqs = u_list1 + u_list2 + u_list3 + u_list4
+    print("sorted-list - {} ".format(pqs))
     logging.info("parallel sorting took - {:f} seconds".format(end))
+    assert qs==pqs
 
         
 
