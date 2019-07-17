@@ -187,7 +187,7 @@ def serve(port=50051):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     try:
         PORT=sys.argv[1]
     except Exception as e:

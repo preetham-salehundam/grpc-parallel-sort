@@ -14,9 +14,9 @@ import random
 import time, math
 NIL = parallel_sorting_pb2.NIL()
 
-SERVERS = ["localhost:50052", "localhost:50053" , "localhost:50054"]
+#SERVERS = ["localhost:50052", "localhost:50053" , "localhost:50054"]
 #u_list = [7, 61, 54, 29, 32, 40, 56]
-
+# PARTITIONS = 4
 unsorted_list = [17, 16, 54, 129, 23, 20, 36, 18, 15, 55, 127, 24, 21, 37, 19, 14, 59, 131, 25, 22, 38, 13, 16, 57, 123, 27, 12, 31]
 unsorted_list = [random.randint(1, 100) for x in range(0,100)]
 print("unsorted list - {}".format(unsorted_list))
@@ -157,6 +157,13 @@ def parallel_sort(machine_a, machine_b, u_list_a, u_list_b):
     return (result_a, result_b)
     
 
+# def converge():
+#     flag = True
+#     u_list = list((chunkify(unsorted_list, PARTITIONS)))
+#     for i in range(1,PARTITIONS):
+#         flag = flag and (max(u_list[i-1]) <  min(u_list[i]))
+#     return flag
+
 if __name__ == '__main__':
     logging.basicConfig(filename="logs.log",level=logging.INFO)
     # executor= connection_pooling(SERVERS)
@@ -178,6 +185,8 @@ if __name__ == '__main__':
     start = time.time()
     with ThreadPoolExecutor(thread_name_prefix="worker") as executor:
         while(not ((max(u_list1) < min(u_list2)) and (max(u_list2) <  min(u_list3)) and (max(u_list3) < min(u_list4)) )):
+        #while(not converge()):
+           # print(converge())
             # TODO: change step 1 and step 2 to parallel calls
             # step 1
             if(not (max(u_list1) < min(u_list2))):
