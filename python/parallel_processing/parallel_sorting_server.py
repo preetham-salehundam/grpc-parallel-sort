@@ -1,4 +1,3 @@
-
 from concurrent import futures
 import time,sys
 import math
@@ -8,6 +7,8 @@ import grpc, random
 
 import parallel_sorting_pb2
 import parallel_sorting_pb2_grpc
+
+from utils import min_max_sort
 #import route_guide_resources
 
 PORT = 50051
@@ -15,14 +16,14 @@ NIL = parallel_sorting_pb2.NIL()
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
-def quicksort(_list):
-    if len(_list) <= 1:
-        return _list
-    pivot = random.choice(_list)
-    _list.remove(pivot)
-    return quicksort([x for x in _list if x < pivot]) \
-           + [pivot] \
-           + quicksort([x for x in _list if x >= pivot])
+# def quicksort(_list):
+#     if len(_list) <= 1:
+#         return _list
+#     pivot = random.choice(_list)
+#     _list.remove(pivot)
+#     return quicksort([x for x in _list if x < pivot]) \
+#            + [pivot] \
+#            + quicksort([x for x in _list if x >= pivot])
 
 
 def stream_data(data):
@@ -100,24 +101,24 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
         self.internal_array = [x.item for x in data_a]
         min_B = self.stub.get_min(NIL).result
         max_A = max(self.internal_array)
-        while(not max_A < min_B):
+        while(not max_A <= min_B):
             # swap max and min
             logging.debug(" min {}, max {}".format(min_B, max_A))
             data = parallel_sorting_pb2.Tuple(a=max_A, b=min_B)
-            if(max_A == min_B):
-                self.stub.remove_duplicate(data)
-                min_B = data.b
-                index = self.internal_array.index(max_A)
-                self.internal_array.insert(index+1, min_B)
-            else:
-                min_B = self.stub.swap(data).result
+            # if(max_A == min_B):
+            #     self.stub.remove_duplicate(data)
+            #     min_B = data.b
+            #     index = self.internal_array.index(max_A)
+            #     self.internal_array.insert(index+1, min_B)
+            # else:
+            min_B = self.stub.swap(data).result
             index = self.internal_array.index(max_A)
             self.internal_array[index] = min_B
             logging.debug("after swapping in process A {}".format(self.internal_array))
             min_B = self.stub.get_min(NIL).result
             max_A = max(self.internal_array)
         # internal sort    
-        self.internal_array = quicksort(self.internal_array)
+        self.internal_array = min_max_sort(self.internal_array)
         # remote sort the array on other process
         self.stub.remote_sort(NIL)
         for item in self.internal_array:
@@ -152,7 +153,7 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
 
     def remote_sort(self, _ , context):
         logging.debug("#### remote_sort ####")
-        self.internal_array = quicksort(self.internal_array)
+        self.internal_array = min_max_sort(self.internal_array)
         logging.debug("sorted array {}".format(str(self.internal_array)))
         data = [parallel_sorting_pb2.Data(item=x) for x in self.internal_array]
         for item in data:
@@ -166,12 +167,9 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
     def get_partial_sorted_data(self, _ , context):
         logging.debug("##### returning partial sorted data")
         logging.debug("returning partial sorted array {}".format(str(self.internal_array)))
-        data = [parallel_sorting_pb2.Data(item=x) for x in quicksort(self.internal_array)]
+        data = [parallel_sorting_pb2.Data(item=x) for x in min_max_sort(self.internal_array)]
         for item in data:
             yield item
-
-
-
 
 def serve(port=50051):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

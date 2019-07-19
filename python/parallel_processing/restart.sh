@@ -9,5 +9,16 @@ python parallel_sorting_server.py 50053 &
 
 python parallel_sorting_server.py 50054 &
 
+python parallel_sorting_server.py 50055 &
 
-#python -m grpc_tools.protoc --proto_path ../../protos --python_out=. --grpc_python_out=. ../../protos/parallel_sorting.proto
+python parallel_sorting_server.py 50056 &
+
+python parallel_sorting_server.py 50057 &
+
+python parallel_sorting_server.py 50058 &
+
+python parallel_sorting_server.py 50059 &
+
+python parallel_sorting_server.py 50060 &
+
+#python -m grpc_tools.protoc --proto_path ../../_protos --python_out=. --grpc_python_out=. ../../_protos/parallel_sorting.proto
