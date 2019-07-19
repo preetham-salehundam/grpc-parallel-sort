@@ -25,14 +25,6 @@ def chunkify(arr, num_of_chunks=1):
         i += 1 #avoiding a zero
         yield arr[start: i*chunk_size]
         start = i*chunk_size
-# def chunkify(_list, size, s_loc=0):
-#     holder = []
-#     s_loc, e_loc = (s_loc, size)
-#     for i in range(0, math.ceil(len(_list)/size)):
-#         holder.append(_list[s_loc: e_loc])
-#         s_loc = e_loc
-#         e_loc = s_loc + size
-#     return holder
 
 def get_pivot(_list):
     pivot = random.choice(_list)
@@ -48,8 +40,6 @@ def quicksort(_list):
            + [pivot] \
            + quicksort([x for x in _list if x >= pivot])
 
-
-#import route_guide_resources
 def compare(stub, data):
     value=stub.compare(data)
     return value
