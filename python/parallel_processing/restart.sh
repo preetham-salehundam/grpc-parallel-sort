@@ -1,6 +1,7 @@
 #! /bin/bash
 kill $(ps -ef | grep parallel_sorting_ | awk '{print $2}')
 
+
 python parallel_sorting_worker.py 50051 &
 
 python parallel_sorting_worker.py 50052 &

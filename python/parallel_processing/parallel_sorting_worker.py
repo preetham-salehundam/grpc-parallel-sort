@@ -8,6 +8,8 @@ import grpc, random
 import parallel_sorting_pb2
 import parallel_sorting_pb2_grpc
 
+import sorting
+
 from utils import min_max_sort
 #import route_guide_resources
 
@@ -16,14 +18,14 @@ NIL = parallel_sorting_pb2.NIL()
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
-# def quicksort(_list):
-#     if len(_list) <= 1:
-#         return _list
-#     pivot = random.choice(_list)
-#     _list.remove(pivot)
-#     return quicksort([x for x in _list if x < pivot]) \
-#            + [pivot] \
-#            + quicksort([x for x in _list if x >= pivot])
+def quicksort(_list):
+    if len(_list) <= 1:
+        return _list
+    pivot = random.choice(_list)
+    _list.remove(pivot)
+    return quicksort([x for x in _list if x < pivot]) \
+           + [pivot] \
+           + quicksort([x for x in _list if x >= pivot])
 
 
 def stream_data(data):
@@ -99,8 +101,10 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
     def process_data(self, data_a, context):
         logging.debug("#### process_data ####")
         self.internal_array = [x.item for x in data_a]
+        logging.info("machine id {} -- internal array -before {}".format(PORT,self.internal_array)) 
         min_B = self.stub.get_min(NIL).result
         max_A = max(self.internal_array)
+        start = time.time()
         while(not max_A <= min_B):
             # swap max and min
             logging.debug(" min {}, max {}".format(min_B, max_A))
@@ -117,9 +121,13 @@ class ParallelSortingServicer(parallel_sorting_pb2_grpc.ParallelSortingServicer)
             logging.debug("after swapping in process A {}".format(self.internal_array))
             min_B = self.stub.get_min(NIL).result
             max_A = max(self.internal_array)
-        # internal sort    
+        # internal sort 
+        logging.info("machine id {} -- over head of exchanges - {:f} seconds in machine ".format(PORT, time.time() - start))  
+        start = time.time()
         self.internal_array = min_max_sort(self.internal_array)
+        logging.info("machine id  {} -- internal sort time exchanges started at {}  ended at {} with a duration of - {:f} seconds".format(PORT, start, time.time(), time.time() - start)) 
         # remote sort the array on other process
+        logging.info("machine id {} -- internal array -after {} ".format(PORT,self.internal_array)) 
         self.stub.remote_sort(NIL)
         for item in self.internal_array:
             yield parallel_sorting_pb2.Data(item=item)  
@@ -185,7 +193,7 @@ def serve(port=50051):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(filename="server.log" ,level=logging.INFO)
     try:
         PORT=sys.argv[1]
     except Exception as e:

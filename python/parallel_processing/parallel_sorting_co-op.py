@@ -16,7 +16,9 @@ import math
 import itertools
 import shutil
 import sys
+import sorting
 from utils import min_max_sort
+ 
 #from parallel_sorting_server import serve
 NIL = parallel_sorting_pb2.NIL()
 

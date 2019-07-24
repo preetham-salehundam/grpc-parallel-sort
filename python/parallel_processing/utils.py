@@ -1,4 +1,4 @@
-import random, time
+import random, time, sys, sorting
 
 def quicksort(_list):
     if len(_list) <= 1:
@@ -15,9 +15,9 @@ def min_max_sort(_list):
     q = len(_list)-1
     while(p<q):
         minimize(_list, p, q)
-        print("after min- {}".format(_list))
+        #print("after min- {}".format(_list))
         maximize(_list, p, q)
-        print("after max- {}".format(_list))
+        #print("after max- {}".format(_list))
         p +=1
         q -=1
     return _list
@@ -54,7 +54,8 @@ def maximize(_list, p, q):
 
 if __name__ == '__main__':
     #arr = [random.randint(1,100) for x in range(10)]
-    arr = [1,6,4,2,3,5]
+    print(sys.executable)
+    arr = [random.randint(1,100) for x in range(100)]
     #arr = [78, 70, 65, 59, 41, 98, 30, 22, 40]
     print("array {}".format(arr))
     start = time.time()
@@ -62,3 +63,5 @@ if __name__ == '__main__':
     start = time.time()
     print("min_max_Sort {}  took {:f} seconds".format( min_max_sort(list(arr)), time.time()-start))
     #assert quicksort(arr) == min_max_sort(arr)
+    start = time.time()
+    print("min_heap_sort {}  took {:f} seconds".format( sorting.maxheap(list(arr)), time.time()-start))
