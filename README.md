@@ -2,6 +2,10 @@
 
 [GRPC python ref guide](https://grpc.io/docs/tutorials/basic/python/)
 
+## Source Code Directory
+[python/parallel_processing](https://github.com/preetham-salehundam/grpc-parallel-sort/tree/master/python/parallel_processing)
+
+
 ## Scripts
 ### BASH
 
